@@ -4,13 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WESTDemo.API.Dto.User;
+using WESTDemo.API.Dto.UserDto;
 using WESTDemo.Domain.Interfaces;
 using WESTDemo.Domain.Models;
 
 namespace WESTDemo.API.Controllers
 {
-    [Route("api/[controller]")]
     public class UsersController : MainController
     {
         private readonly IUserService _userService;
@@ -41,12 +40,23 @@ namespace WESTDemo.API.Controllers
             return Ok(_mapper.Map<UserResultDto>(user));
         }
 
+        [Route("org/{id:int}")]
+        [HttpGet]
+        public async Task<IActionResult> GetByOrganisationId(int id)
+        {
+            var user = await _userService.GetById(id);
+
+            if (user == null) return NotFound();
+
+            return Ok(_mapper.Map<UserResultDto>(user));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(UserAddDto userDto)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var user = _mapper.Map<Users>(userDto);
+            var user = _mapper.Map<User>(userDto);
             var userResult = await _userService.Add(user);
 
             if (userResult == null) return BadRequest();
@@ -61,7 +71,7 @@ namespace WESTDemo.API.Controllers
 
             if (!ModelState.IsValid) return BadRequest();
 
-            await _userService.Update(_mapper.Map<Users>(userDto));
+            await _userService.Update(_mapper.Map<User>(userDto));
 
             return Ok(userDto);
         }
@@ -79,22 +89,22 @@ namespace WESTDemo.API.Controllers
 
         [Route("search/{userName}")]
         [HttpGet]
-        public async Task<ActionResult<List<Users>>> Search(string userName)
+        public async Task<ActionResult<List<User>>> Search(string userName)
         {
-            var users = _mapper.Map<List<Users>>(await _userService.Search(userName));
+            var users = _mapper.Map<List<User>>(await _userService.Search(userName));
 
-            if (users == null || users.Count == 0) return NotFound("None book was founded");
+            if (users == null || users.Count == 0) return NotFound("No user were found");
 
             return Ok(users);
         }
 
         [Route("search-users/{searchedValue}")]
         [HttpGet]
-        public async Task<ActionResult<List<Users>>> SearchUsers(string searchedValue)
+        public async Task<ActionResult<List<User>>> SearchUsers(string searchedValue)
         {
-            var users = _mapper.Map<List<Users>>(await _userService.SearchUsers(searchedValue));
+            var users = _mapper.Map<List<User>>(await _userService.SearchUsers(searchedValue));
 
-            if (!users.Any()) return NotFound("None book was founded");
+            if (!users.Any()) return NotFound("None user were found");
 
             return Ok(_mapper.Map<IEnumerable<UserResultDto>>(users));
         }

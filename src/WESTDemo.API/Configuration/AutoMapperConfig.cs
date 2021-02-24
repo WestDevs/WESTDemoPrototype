@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WESTDemo.API.Dto.User;
+using WESTDemo.API.Dto.CentreDto;
+using WESTDemo.API.Dto.OrganisationDto;
+using WESTDemo.API.Dto.UserDto;
+using WESTDemo.API.Dto.UserTypeDto;
 using WESTDemo.Domain.Models;
 
 namespace WESTDemo.API.Configuration
@@ -12,9 +11,18 @@ namespace WESTDemo.API.Configuration
     {
         public AutoMapperConfig()
         {
-            CreateMap<Users, UserAddDto>().ReverseMap();
-            CreateMap<Users, UserEditDto>().ReverseMap();
-            CreateMap<Users, UserResultDto>().ReverseMap();
+            CreateMap<User, UserAddDto>().ReverseMap();
+            CreateMap<User, UserEditDto>().ReverseMap();
+            CreateMap<User, UserResultDto>().ReverseMap();
+            CreateMap<UserType, UserTypeAddDto>().ReverseMap();
+            CreateMap<UserType, UserTypeEditDto>().ReverseMap();
+            CreateMap<UserType, UserTypeResultDto>().ReverseMap();
+            CreateMap<Organisation, OrganisationAddDto>().ReverseMap();
+            CreateMap<Organisation, OrganisationEditDto>().ReverseMap();
+            CreateMap<Organisation, OrganisationResultDto>().ReverseMap();
+            CreateMap<Centre, CentreAddDto>().ReverseMap();
+            CreateMap<Centre, CentreEditDto>().ReverseMap();
+            CreateMap<Centre, CentreResultDto>().ReverseMap();
         }
     }
 }

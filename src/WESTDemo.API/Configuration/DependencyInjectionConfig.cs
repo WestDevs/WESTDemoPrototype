@@ -1,10 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WESTDemo.Domain.Interfaces;
 using WESTDemo.Domain.Services;
+using WESTDemo.Domain.Interfaces;
 using WESTDemo.Infrastracture.Context;
 using WESTDemo.Infrastracture.Repositories;
 
@@ -19,7 +15,19 @@ namespace WESTDemo.API.Configuration
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IUserService, UserService>();
+            
+            services.AddScoped<IUserTypeRepository, UserTypeRepository>();
 
+            services.AddScoped<IUserTypeService, UserTypeService>();
+
+            services.AddScoped<IOrganisationRepository, OrganisationRepository>();
+
+            services.AddScoped<IOrganisationService, OrganisationService>();
+
+            services.AddScoped<ICentreRepository, CentreRepository>();
+
+            services.AddScoped<ICentreService, CentreService>();
+            
             return services;
         }
     }

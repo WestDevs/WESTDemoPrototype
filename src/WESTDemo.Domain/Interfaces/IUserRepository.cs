@@ -6,10 +6,12 @@ using WESTDemo.Domain.Models;
 
 namespace WESTDemo.Domain.Interfaces
 {
-    public interface IUserRepository : IRepository<Users>
+    public interface IUserRepository : IRepository<User>
     {
-        new Task<List<Users>> GetAll();
-        new Task<Users> GetById(int id);
-        Task<IEnumerable<Users>> SearchUsers(string searchedValue);
+        new Task<List<User>> GetAll();
+        new Task<User> GetById(int id);
+        Task<IEnumerable<User>> GetUsersByOrganisation(int organisationId);
+        Task<IEnumerable<User>> GetUsersByUserType(int userTypeId);
+        Task<IEnumerable<User>> SearchUsers(string searchedValue);
     }
 }

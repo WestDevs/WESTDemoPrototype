@@ -10,25 +10,39 @@ using WESTDemo.Infrastracture.Context;
 
 namespace WESTDemo.Infrastracture.Repositories
 {
-    public class UserRepository : Repository<Users>, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         public UserRepository(UsersContext context) : base(context) { }
 
-        public override async Task<List<Users>> GetAll()
+        public override async Task<List<User>> GetAll()
         {
             return await Db.Users.AsNoTracking()
                 .OrderBy(b => b.FirstName)
                 .ToListAsync();
         }
 
-        public override async Task<Users> GetById(int id)
+        public override async Task<User> GetById(int id)
         {
             return await Db.Users.AsNoTracking()
                 .Where(b => b.Id == id)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Users>> SearchUsers(string searchedValue)
+        public async Task<IEnumerable<User>> GetUsersByOrganisation(int organisationId)
+        {
+            return await Db.Users.AsNoTracking()
+                .Where(u => u.OrganisationId == organisationId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetUsersByUserType(int userTypeId)
+        {
+            return await Db.Users.AsNoTracking()
+                .Where(u => u.TypeId == userTypeId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<User>> SearchUsers(string searchedValue)
         {
             return await Db.Users.AsNoTracking()
                 .Where(b => b.FirstName.Contains(searchedValue) ||

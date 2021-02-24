@@ -24,7 +24,7 @@ namespace WESTDemo.API
         {
             services.AddDbContext<UsersContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
 
             services.AddAutoMapper(typeof(Startup));
@@ -32,14 +32,19 @@ namespace WESTDemo.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo 
-                { 
-                    Title = "WESTDemo.API", 
-                    Version = "v1" 
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "WESTDemo.API",
+                    Version = "v1"
                 });
             });
+            services.AddControllersWithViews()
+                    .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
 
             services.AddCors();
+
 
             services.ResolveDependencies();
         }

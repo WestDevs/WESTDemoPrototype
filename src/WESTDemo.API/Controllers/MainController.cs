@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 namespace WESTDemo.API.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public abstract class MainController : ControllerBase
     {
+
 
     }
 }

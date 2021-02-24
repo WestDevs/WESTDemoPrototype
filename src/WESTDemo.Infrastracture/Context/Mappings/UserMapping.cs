@@ -7,9 +7,9 @@ using WESTDemo.Domain.Models;
 
 namespace WESTDemo.Infrastracture.Context.Mappings
 {
-    public class UserMapping : IEntityTypeConfiguration<Users>
+    public class UserMapping : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<Users> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(b => b.Id);
 

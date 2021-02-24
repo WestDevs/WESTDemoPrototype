@@ -1,31 +1,36 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using WESTDemo.Domain.Models;
+using System.Linq;
 
 namespace WESTDemo.Infrastracture.Context
 {
-    public class UsersContext : DbContext
+  public class UsersContext : DbContext
+  {
+    public UsersContext(DbContextOptions options) : base(options) { }
+
+    public DbSet<User> Users { get; set; }
+    public DbSet<Learner> Learners { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<Organisation> Organisations { get; set; }
+    public DbSet<Centre> Centres { get; set; }
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<UserType> UserTypes { get; set; }
+    public DbSet<LearnerStatus> LearnerStatuses { get; set; }
+    public DbSet<LearnerGroup> LearnerGroups { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        public UsersContext(DbContextOptions options) : base(options) { }
+      foreach (var property in modelBuilder.Model.GetEntityTypes()
+          .SelectMany(e => e.GetProperties()
+              .Where(p => p.ClrType == typeof(string))))
+        property.SetColumnType("varchar(150)");
 
-        public DbSet<Users> Users { get; set; }
+      modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsersContext).Assembly);
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            foreach (var property in modelBuilder.Model.GetEntityTypes()
-                .SelectMany(e => e.GetProperties()
-                    .Where(p => p.ClrType == typeof(string))))
-                property.SetColumnType("varchar(150)");
+      foreach (var relationship in modelBuilder.Model.GetEntityTypes()
+          .SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsersContext).Assembly);
-
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes()
-                .SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
-
-            base.OnModelCreating(modelBuilder);
-        }
+      base.OnModelCreating(modelBuilder);
     }
+  }
 }

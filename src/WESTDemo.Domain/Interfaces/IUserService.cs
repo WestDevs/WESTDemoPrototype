@@ -8,12 +8,14 @@ namespace WESTDemo.Domain.Interfaces
 {
     public interface IUserService : IDisposable
     {
-        Task<IEnumerable<Users>> GetAll();
-        Task<Users> GetById(int id);
-        Task<Users> Add(Users user);
-        Task<Users> Update(Users user);
-        Task<bool> Remove(Users user);
-        Task<IEnumerable<Users>> Search(string userName);
-        Task<IEnumerable<Users>> SearchUsers(string searchedValue);
+        Task<IEnumerable<User>> GetAll();
+        Task<User> GetById(int id);
+        Task<User> Add(User user);
+        Task<User> Update(User user);
+        Task<bool> Remove(User user);
+        Task<IEnumerable<User>> GetUsersByOrganisation(int organisationId);
+        Task<IEnumerable<User>> GetUsersByUserType(int userTypeId);
+        Task<IEnumerable<User>> Search(string userName);
+        Task<IEnumerable<User>> SearchUsers(string searchedValue);
     }
 }
