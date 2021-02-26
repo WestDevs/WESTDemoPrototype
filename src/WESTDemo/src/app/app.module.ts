@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbNav } from '@ng-bootstrap/ng-bootstrap';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -20,6 +20,9 @@ import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { NgbdDatepickerPopup } from './datepicker/datepicker-popup';
+import { LoginComponent } from './login/login.component';
+import { NavTabComponent } from './nav-tab/nav-tab.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { NgbdDatepickerPopup } from './datepicker/datepicker-popup';
     UserComponent,
     UserListComponent,
     ConfirmationDialogComponent,
-    NgbdDatepickerPopup
+    NgbdDatepickerPopup,
+    LoginComponent,
+    NavTabComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +45,7 @@ import { NgbdDatepickerPopup } from './datepicker/datepicker-popup';
     NgbModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    // NgbNav
   ],
   providers: [
     UserService,
