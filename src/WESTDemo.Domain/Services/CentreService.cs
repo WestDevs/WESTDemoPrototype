@@ -18,7 +18,7 @@ namespace WESTDemo.Domain.Services
         public async Task<Centre> Add(Centre newCentre)
         {
             if (_centreRepository
-                    .Search(o => o.Name.ToLower() == newCentre.Name.ToLower())
+                    .Search(c => c.Name.ToLower() == newCentre.Name.ToLower())
                     .Result.Any())
                 return null;
 
@@ -26,7 +26,6 @@ namespace WESTDemo.Domain.Services
             if (org == null) return null;
 
             await _centreRepository.Add(newCentre);
-            newCentre.Organisation.Centres = null;
 
             return newCentre;
         }

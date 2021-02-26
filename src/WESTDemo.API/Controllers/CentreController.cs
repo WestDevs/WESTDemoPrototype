@@ -50,5 +50,43 @@ namespace WESTDemo.API.Controllers
             return Ok(_mapper.Map<CentreResultDto>(centreResult));
         }
 
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, CentreEditDto updatedCentre)
+        {
+            if (id != updatedCentre.Id) return BadRequest();
+            if (!ModelState.IsValid) return BadRequest();
+
+            var centreResult = await _centreService.Update(_mapper.Map<Centre>(updatedCentre));
+            if (centreResult == null) return BadRequest();
+
+            return Ok(_mapper.Map<CentreResultDto>(centreResult));
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var centre = await _centreService.GetById(id);
+
+            if (centre == null) return NotFound();
+
+            if (!await _centreService.Remove(centre))
+                return BadRequest();
+
+            return Ok();
+
+        }
+
+        [HttpGet("search/{centreName}")]
+        public async Task<IActionResult> Search(string centreName)
+        {
+            var centres = _mapper.Map<List<Course>>(await _centreService.Search(centreName));
+
+            if (centres == null || centres.Count == 0) return NotFound("No centre found");
+
+            return Ok(_mapper.Map<IEnumerable<CentreResultDto>>(centres));
+
+        }
+
+
     }
 }

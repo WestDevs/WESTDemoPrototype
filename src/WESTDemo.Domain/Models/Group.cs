@@ -8,6 +8,6 @@ namespace WESTDemo.Domain.Models
         public string Name { get; set; }
 
     // Navigation Property
-        public ICollection<LearnerGroup> LearnerGroups { get; set; }
+        public ICollection<Learner> Learners { get; set; }
 }
 }

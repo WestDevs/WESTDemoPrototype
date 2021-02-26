@@ -11,15 +11,20 @@ namespace WESTDemo.Domain.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly IUserTypeService _typeService;
+        private readonly IOrganisationService _orgService;
+        public UserService(IUserRepository userRepository, IUserTypeService typeService, IOrganisationService orgService)
         {
+            _orgService = orgService;
+            _typeService = typeService;
             _userRepository = userRepository;
         }
         public async Task<User> Add(User user)
         {
-            if (_userRepository.Search(b => b.FirstName == user.FirstName
-                                        && b.LastName == user.LastName).Result.Any())
-                return null;
+            if (await _typeService.GetById(user.TypeId) == null) return null;
+            if (await _orgService.GetById(user.OrganisationId) == null) return null;
+            if (_userRepository.Search(b => b.Username == user.Username).Result.Any())  // uniqueness must be checked in username and email as well
+                    return null;
 
             await _userRepository.Add(user);
             return user;
@@ -58,7 +63,10 @@ namespace WESTDemo.Domain.Services
 
         public async Task<IEnumerable<User>> Search(string userName)
         {
-            return await _userRepository.Search(c => c.FirstName.Contains(userName));
+            return await _userRepository
+                            .Search(c => c.Username.Contains(userName) ||
+                                 c.LastName.Contains(userName) ||
+                                 c.FirstName.Contains(userName));
         }
 
         public async Task<IEnumerable<User>> SearchUsers(string searchedValue)

@@ -7,7 +7,7 @@ using WESTDemo.Domain.Interfaces;
 using WESTDemo.API.Controllers;
 using WESTDemo.Domain.Models;
 
-namespace src.WESTDemo.API.Controllers
+namespace WESTDemo.API.Controllers
 {
     public class OrganisationController : MainController
     {

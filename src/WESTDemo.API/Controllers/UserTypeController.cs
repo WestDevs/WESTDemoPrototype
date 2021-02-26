@@ -7,7 +7,7 @@ using WESTDemo.API.Dto.UserTypeDto;
 using WESTDemo.Domain.Interfaces;
 using WESTDemo.Domain.Models;
 
-namespace src.WESTDemo.API.Controllers
+namespace WESTDemo.API.Controllers
 {
     public class UserTypeController : MainController
     {

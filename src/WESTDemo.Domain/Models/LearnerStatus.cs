@@ -1,6 +1,6 @@
 namespace WESTDemo.Domain.Models
 {
-    public class LearnerStatus
+    public class LearnerStatus 
     {
         public int LearnerId { get; set; }
         public int CourseId { get; set; }

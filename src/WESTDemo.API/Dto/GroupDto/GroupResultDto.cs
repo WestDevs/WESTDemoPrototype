@@ -1,4 +1,4 @@
-namespace src.WESTDemo.API.Dto.GroupDto
+namespace WESTDemo.API.Dto.GroupDto
 {
     public class GroupResultDto
     {

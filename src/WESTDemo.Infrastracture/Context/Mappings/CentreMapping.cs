@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WESTDemo.Domain.Models;
 
-namespace src.WESTDemo.Infrastracture.Context.Mappings
+namespace WESTDemo.Infrastracture.Context.Mappings
 {
     public class CentreMapping : IEntityTypeConfiguration<Centre>
     {

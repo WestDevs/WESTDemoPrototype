@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WESTDemo.Domain.Models;
 
 namespace WESTDemo.Domain.Interfaces
 {
-    public interface ICourseService : IRepository<Course>
+    public interface ICourseService : IDisposable
     {
         Task<Course> Add(Course entity);
         Task<IEnumerable<Course>> GetAll();

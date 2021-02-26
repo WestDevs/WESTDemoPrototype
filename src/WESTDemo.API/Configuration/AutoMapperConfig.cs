@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
+using WESTDemo.API.Dto.GroupDto;
+using WESTDemo.API.Dto.LearnerDto;
 using WESTDemo.API.Dto.CentreDto;
+using WESTDemo.API.Dto.CourseDto;
 using WESTDemo.API.Dto.OrganisationDto;
 using WESTDemo.API.Dto.UserDto;
 using WESTDemo.API.Dto.UserTypeDto;
 using WESTDemo.Domain.Models;
+using WESTDemo.API.Dto.LearnerStatusDto;
 
 namespace WESTDemo.API.Configuration
 {
@@ -23,6 +27,17 @@ namespace WESTDemo.API.Configuration
             CreateMap<Centre, CentreAddDto>().ReverseMap();
             CreateMap<Centre, CentreEditDto>().ReverseMap();
             CreateMap<Centre, CentreResultDto>().ReverseMap();
+            CreateMap<Course, CourseAddDto>().ReverseMap();
+            CreateMap<Course, CourseEditDto>().ReverseMap();
+            CreateMap<Course, CourseResultDto>().ReverseMap();
+            CreateMap<Group, GroupAddDto>().ReverseMap();
+            CreateMap<Group, GroupEditDto>().ReverseMap();
+            CreateMap<Group, GroupResultDto>().ReverseMap();
+            CreateMap<Learner, LearnerAddDto>().ReverseMap();
+            CreateMap<Learner, LearnerEditDto>().ReverseMap();
+            CreateMap<Learner, LearnerResultDto>().ReverseMap();
+            CreateMap<LearnerStatus, LearnerStatusAddDto>().ReverseMap();
+            CreateMap<LearnerStatus, LearnerStatusResultDto>().ReverseMap();
         }
     }
 }

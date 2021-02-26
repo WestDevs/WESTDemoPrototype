@@ -176,7 +176,7 @@ namespace WESTDemo.Infrastracture.Migrations
                     b.ToTable("UserTypes");
                 });
 
-            modelBuilder.Entity("src.WESTDemo.Domain.Models.Centre", b =>
+            modelBuilder.Entity("WESTDemo.Domain.Models.Centre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -257,7 +257,7 @@ namespace WESTDemo.Infrastracture.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("src.WESTDemo.Domain.Models.Centre", b =>
+            modelBuilder.Entity("WESTDemo.Domain.Models.Centre", b =>
                 {
                     b.HasOne("WESTDemo.Domain.Models.Organisation", "Organisation")
                         .WithMany("Centres")

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WESTDemo.Infrastracture.Context;
 
 namespace WESTDemo.Infrastracture.Migrations
 {
     [DbContext(typeof(UsersContext))]
-    partial class UsersContextModelSnapshot : ModelSnapshot
+    [Migration("20210225161616_ModifyLearnerRelations")]
+    partial class ModifyLearnerRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,7 +219,7 @@ namespace WESTDemo.Infrastracture.Migrations
                         .IsRequired();
 
                     b.HasOne("WESTDemo.Domain.Models.Learner", "Learner")
-                        .WithMany("LearnerStatus")
+                        .WithMany("LearnerCourses")
                         .HasForeignKey("LearnerId")
                         .IsRequired();
 
@@ -255,7 +257,7 @@ namespace WESTDemo.Infrastracture.Migrations
 
             modelBuilder.Entity("WESTDemo.Domain.Models.Learner", b =>
                 {
-                    b.Navigation("LearnerStatus");
+                    b.Navigation("LearnerCourses");
                 });
 
             modelBuilder.Entity("WESTDemo.Domain.Models.Organisation", b =>

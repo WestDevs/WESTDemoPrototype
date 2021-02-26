@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace src.WESTDemo.API.Dto.GroupDto
+namespace WESTDemo.API.Dto.GroupDto
 {
     public class GroupAddDto
     {

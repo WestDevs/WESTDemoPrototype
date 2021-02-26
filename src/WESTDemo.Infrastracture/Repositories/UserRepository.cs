@@ -45,8 +45,7 @@ namespace WESTDemo.Infrastracture.Repositories
         public async Task<IEnumerable<User>> SearchUsers(string searchedValue)
         {
             return await Db.Users.AsNoTracking()
-                .Where(b => b.FirstName.Contains(searchedValue) ||
-                            b.LastName.Contains(searchedValue))
+                .Where(b => b.Username.Contains(searchedValue))
                 .ToListAsync();
         }
     }

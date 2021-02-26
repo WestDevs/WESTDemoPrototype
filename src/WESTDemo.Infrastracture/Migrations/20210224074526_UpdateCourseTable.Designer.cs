@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WESTDemo.Infrastracture.Context;
 
 namespace WESTDemo.Infrastracture.Migrations
 {
     [DbContext(typeof(UsersContext))]
-    partial class UsersContextModelSnapshot : ModelSnapshot
+    [Migration("20210224074526_UpdateCourseTable")]
+    partial class UpdateCourseTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,11 +49,11 @@ namespace WESTDemo.Infrastracture.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("IconPath")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(150)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("IconPath")
                         .IsRequired()
                         .HasColumnType("varchar(150)");
 
@@ -82,19 +84,32 @@ namespace WESTDemo.Infrastracture.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Learner");
+                });
+
+            modelBuilder.Entity("WESTDemo.Domain.Models.LearnerGroup", b =>
+                {
+                    b.Property<int>("LearnerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LearnerId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("LearnerId")
+                        .IsUnique();
+
+                    b.ToTable("LearnerGroup");
                 });
 
             modelBuilder.Entity("WESTDemo.Domain.Models.LearnerStatus", b =>
@@ -194,19 +209,29 @@ namespace WESTDemo.Infrastracture.Migrations
 
             modelBuilder.Entity("WESTDemo.Domain.Models.Learner", b =>
                 {
-                    b.HasOne("WESTDemo.Domain.Models.Group", "Group")
-                        .WithMany("Learners")
-                        .HasForeignKey("GroupId")
-                        .IsRequired();
-
                     b.HasOne("WESTDemo.Domain.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .IsRequired();
 
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WESTDemo.Domain.Models.LearnerGroup", b =>
+                {
+                    b.HasOne("WESTDemo.Domain.Models.Group", "Group")
+                        .WithMany("LearnerGroups")
+                        .HasForeignKey("GroupId")
+                        .IsRequired();
+
+                    b.HasOne("WESTDemo.Domain.Models.Learner", "Learner")
+                        .WithOne("LearnerGroup")
+                        .HasForeignKey("WESTDemo.Domain.Models.LearnerGroup", "LearnerId")
+                        .IsRequired();
+
                     b.Navigation("Group");
 
-                    b.Navigation("User");
+                    b.Navigation("Learner");
                 });
 
             modelBuilder.Entity("WESTDemo.Domain.Models.LearnerStatus", b =>
@@ -217,7 +242,7 @@ namespace WESTDemo.Infrastracture.Migrations
                         .IsRequired();
 
                     b.HasOne("WESTDemo.Domain.Models.Learner", "Learner")
-                        .WithMany("LearnerStatus")
+                        .WithMany("LearnerCourses")
                         .HasForeignKey("LearnerId")
                         .IsRequired();
 
@@ -250,12 +275,14 @@ namespace WESTDemo.Infrastracture.Migrations
 
             modelBuilder.Entity("WESTDemo.Domain.Models.Group", b =>
                 {
-                    b.Navigation("Learners");
+                    b.Navigation("LearnerGroups");
                 });
 
             modelBuilder.Entity("WESTDemo.Domain.Models.Learner", b =>
                 {
-                    b.Navigation("LearnerStatus");
+                    b.Navigation("LearnerCourses");
+
+                    b.Navigation("LearnerGroup");
                 });
 
             modelBuilder.Entity("WESTDemo.Domain.Models.Organisation", b =>

@@ -16,7 +16,7 @@ namespace WESTDemo.Infrastracture.Context
     public DbSet<Course> Courses { get; set; }
     public DbSet<UserType> UserTypes { get; set; }
     public DbSet<LearnerStatus> LearnerStatuses { get; set; }
-    public DbSet<LearnerGroup> LearnerGroups { get; set; }
+    // public DbSet<LearnerGroup> LearnerGroups { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
