@@ -1,1 +1,113 @@
-/* You can add global styles to this file, and also import other style files */
+@charset "UTF-8";
+
+/* Primary Red : #8C0707
+Secondary Red : #4C0404
+Tertiary Red : #6D0000
+Primary Grey : #E0E0E0
+Secondary Grey : #919191
+Tertiary Grey : #727272
+WESAT Blue : #35495C */
+
+
+/* BACKGROUND COLOR */
+
+.bg-primary-red {
+    background-color: #8C0707;
+}
+
+.bg-primary-red:hover {
+    background-color: #4C0404;
+}
+
+.bg-secondary-red {
+    background-color: #4C0404;
+}
+
+.bg-primary-grey {
+    background-color: #E0E0E0;
+}
+
+.bg-secondary-grey {
+    background-color: #919191;
+}
+
+.bg-login-card {
+    background-color: #DDDDDD;
+}
+
+.bg-login-nav {
+    background-color: #F5F5F5;
+}
+
+.bg-nav-primary {
+    background-color: #8C0707 !important;
+}
+
+.bg-nav-secondary {
+    background-color: #4C0404;
+}
+
+
+/* TEXT COLOR */
+
+.text-primary-red {
+    color: #8C0707;
+}
+
+.text-primary-red:hover {
+    color: #4C0404;
+}
+
+.text-login {
+    color: #F5F5F5 !important;
+}
+
+
+/** CONFIG **/
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url(https://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://themes.googleusercontent.com/static/fonts/opensans/v8/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+
+html {
+    /* background-color: #F5F5F5; */
+    font-family: sans-serif;
+    /* font-weight: 400; */
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    height: 100%;
+    /* background-color: #eeeeee; */
+}
+
+body {
+    background-color: #F5F5F5;
+    font-size: small;
+    /* background-color: #eeeeee; */
+    /* color: #444444; */
+    /* font-family: 'Open Sans', sans-serif; */
+}
+
+.rounded-4 {
+    border-radius: 1em!important;
+}
+
+.logo {
+    /* height: auto;
+    width: auto;
+    max-height: 80px;
+    max-width: 390px; */
+    height: auto;
+    width: auto;
+    max-height: 72px;
+    max-width: 300px;
+}

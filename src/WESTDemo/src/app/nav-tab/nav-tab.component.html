@@ -1,0 +1,41 @@
+<!-- <nav class="navbar navbar-expand-lg navbar-dark py-0 m-0 bg-nav-secondary">
+    <div class="container">
+        <ul class="nav nav-tabs border-0">
+            <li class="nav-item">
+                <button class="nav-link rounded-0 border-0 text-login" aria-current="page">Users</button >
+            </li>
+            <li class="nav-item">
+                <a class="nav-link rounded-0 border-0 text-login">Groups</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link rounded-0 border-0 text-login">Learner Resource</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link rounded-0 border-0 text-login">Reports</a>
+            </li>
+        </ul>
+    </div>
+</nav> -->
+<nav class="py-0 m-0 bg-nav-secondary">
+    <div class="container-lg p-0">
+        <ul ngbNav #nav="ngbNav" class="nav nav-tabs border-0 d-flex flex-row flex-lg-row flex-column">
+            <li ngbNavItem>
+                <a ngbNavLink class="nav-link py-lg-3 rounded-0 border-0 text-login">Users</a>
+                <!-- <ng-template ngbNavContent>First content</ng-template> -->
+            </li>
+            <li ngbNavItem>
+                <a ngbNavLink class="nav-link py-lg-3 rounded-0 border-0 text-login">Groups</a>
+                <!-- <ng-template ngbNavContent>Second content</ng-template> -->
+            </li>
+            <li ngbNavItem>
+                <a ngbNavLink class="nav-link py-lg-3 rounded-0 border-0 text-login">Learner Resource</a>
+                <!-- <ng-template ngbNavContent>Second content</ng-template> -->
+            </li>
+            <li ngbNavItem>
+                <a ngbNavLink class="nav-link py-lg-3 rounded-0 border-0 text-login">Reports</a>
+                <!-- <ng-template ngbNavContent>Second content</ng-template> -->
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- <div [ngbNavOutlet]="nav"></div> -->

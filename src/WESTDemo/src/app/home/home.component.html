@@ -1,7 +1,35 @@
-
-<div class="title-home container mt-5 text-center">
-    <h1>Welcome to WESTDemo</h1>    
-    <div class="text-center">
-        <button class="btn btn-info btn-lg" [routerLink]="['/users']">See Users</button>
+<br/>
+<main>
+    <div class="container text-center">
+        <img class="img-fluid" [src]="'assets/image/splash.png'" />
     </div>
-</div>
+    <div class="container-lg">
+        <div class="row mb-3 text-center">
+            <div class="col-lg-6 mt-3">
+                <div class="card px-4 border-0 rounded-4 mb-3">
+                    <div class="card-body">
+                        <p class="card-text m-3">Croeso i Becyn Cymorth Sgiliau Hanfodol Cymru. Mae’r Pecyn Cymorth yn gadael i chi reoli eich dysgu ac yn rhoi i chi’r holl arfau a chefnogaeth mae eu hangen arnoch i lwyddo gyda Sgiliau Hanfodol.</p>
+                        <a href="#" class="btn btn-primary px-4 py-3 rounded-0 border-0 bg-primary-red m-3">Cymraeg</a>
+                        <a href="#" class="d-block text-primary-red m-3">Defnyddiwr sy’n dychwelyd? Mewngofnodwch ></a>
+                    </div>
+                </div>
+                <div class="card border-0 rounded-4 mb-3">
+                    <a href="#" class="d-block text-primary-red m-3 mx-auto"><i class="far fa-clock align-middle"></i> Gwnewch brawf sgrinio 10 munud ></a>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-3">
+                <div class="card px-4 border-0 rounded-4 mb-3">
+                    <div class="card-body">
+                        <p class="card-text m-3">Welcome to WEST – the Wales Essential Skills Toolkit. WEST puts you in charge of your learning and gives you all the tools and support you need for Essential Skills success.</p>
+                        <a href="#" class="btn btn-primary px-4 py-3 rounded-0 border-0 bg-primary-red m-3">English</a>
+                        <a routerLink="/login" routerLinkActive="active" class="d-block text-primary-red m-3">Returning user? Sign in ></a>
+                    </div>
+                </div>
+                <div class="card border-0 rounded-4 mb-3">
+                    <a href="#" class="d-block text-primary-red m-3 mx-auto"><i class="far fa-clock"></i> Take a 10 minute screener ></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<app-footer></app-footer>

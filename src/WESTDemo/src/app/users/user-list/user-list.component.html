@@ -1,7 +1,161 @@
+<app-nav></app-nav>
 <main role="main" id="main-content">
+
   <header>
     <div class="h1Wrapper">
       <h1 class="title" id="page-title">Users</h1>
     </div>
   </header>
+
+  <article style="font-size: small ;">
+    <a id="main-content"></a>
+    <section class="left">
+      <div id="block-system-main" class="block block-system">
+        <div class="content">
+          <div id="s2g">
+            <div id="views">
+              <div class="submenu">
+                <a class="newLearnerButton" (click)="addUser()">New Learner</a>
+              </div>
+              <div class="contentpaneopen" style="padding: 1em">
+                <p>Click a learner name to view and update an individual’s learning plan and details.</p>
+                <p>To apply an action to one or more learners in this list, select their checkboxes and then press the
+                  appropriate
+                  ‘Action’ button at the bottom of the list. Please <a href="/?q=node/111">read these notes before
+                    disabling or deleting accounts</a>.</p>
+                <p>Use the search options to filter the list by keyword, course, or group.</p>
+              </div>
+              <div class="formTable">
+                <form method id="form_0" name="admin_learner_search">
+                  <fieldset class="filters">
+                    <legend>Search Options</legend>
+                    <div id="courseBox2">
+                      <label for="courseFilter">Courses</label>
+                      <select name="courseFilter" id="courseFilter" onchange="submit();" >
+                        <option selected value="">All Courses</option>
+                        <option selected value="">All Courses1</option>
+                        <option selected value="">All Courses2</option>
+                        <!-- <option *ngFor="let course of courses" value="course.id">{{course.name}}</option> -->
+                      </select>
+                    </div>
+                    <br>
+                    <div id="groupBox2">
+                      <label for="groupFilter">Groups</label>
+                      <select name="groupFilter" id="groupFilter" >
+                          <option selected value="">All Groups</option>
+                          <option selected value="">Groups</option>
+                          <!-- <option *ngFor="let group of groups" value="group.id">{{group.name}}</option> -->
+                      </select>
+                    </div>
+                    <div id="accountStatus">
+                      <label>Account status</label>
+                      <label for="statusEn"><input type="radio" name="status" id="statusEn" value="1" checked=""
+                          style="width:auto;"> Enabled</label>
+                      <label for="statusDis"><input type="radio" name="status" id="statusDis" value="0"
+                          style="width:auto;"> Disabled</label>
+                    </div>
+                    <div class="right" id="searchBox" style="display: flex;justify-content: flex-end;">
+                      <input type="text" />
+                      <input type="submit" value="Search" style="margin-left: 1em;"> 
+                    </div>
+                  </fieldset>
+                  <table class="table table-condensed table-hover">
+                    <thead style="background-color: #919191; color: white; font-weight: bold; text-indent: 1.5em;">
+                      <tr>
+                        <th scope="col"><label>Sort</label>
+                          <select name="nameSort" id="nameSort">
+                          <option value="firstname">First name</option>
+                          <option value="lastname">Surname</option>
+                        </select>
+                        </th>
+                        <th scope="col"><label>Groups</label></th>
+                        <th scope="col"><label>Courses</label></th>
+                      </tr>
+                    </thead>
+                    <tbody style="border-top: 1px solid #ccc; ">
+                      <!-- <tr *ngFor="let learner of learners">
+                        <td>
+                          <a href="#">{{learner.firstname}} {{learner.lastname}}</a> [{{learner.username}}]
+                        </td>
+                        <td>{{learner.group?.name}}</td>
+                        <td>
+                            <span *ngFor="let course of learner.courses">
+                                <img src={{course.iconPath}} title={{course.name}} >
+                            </span>
+                        </td>
+                      </tr> -->
+                      <tr>
+                        <td class="learner"><input type="checkbox" name="learner[]" value="ABLearner-SB@4">
+                          <a href="?q=adv_learneroverview&amp;username=ABLearner-SB@4&amp;last_page=adminLearnerList">Learner 1 <font color="red">(D)</font></a>&nbsp;[ABLearner-SB]
+                        </td>
+                        <td>
+                          Group 1
+                        </td>
+                        <td>
+                          <img src="assets/image/esm.png">
+                          <img src="assets/image/esm.png">
+                          <img src="assets/image/esm.png">
+                          <img src="assets/image/esm.png">
+                          <img src="assets/image/esm.png">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="learner"><input type="checkbox" name="learner[]" value="ABLearner-SB@4">
+                          <a href="?q=adv_learneroverview&amp;username=ABLearner-SB@4&amp;last_page=adminLearnerList">Learner 2 <font color="red">(D)</font></a>&nbsp;[ABLearner-SB]
+                        </td>
+                        <td>
+                          Group 2
+                        </td>
+                        <td>
+                          Course 2
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="learner"><input type="checkbox" name="learner[]" value="ABLearner-SB@4">
+                          <a href="?q=adv_learneroverview&amp;username=ABLearner-SB@4&amp;last_page=adminLearnerList">Learner 3 <font color="red">(D)</font></a>&nbsp;[ABLearner-SB]
+                        </td>
+                        <td>
+                          Group 3
+                        </td>
+                        <td>
+                          Course 3
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="tableActions">
+                    <div id="paginationContainer">
+                      <div class="selection" style="flex-grow: 1; position: relative; flex: 50%;">Select:
+                        <a id="S2GselectAll_0" href="#" title="select all">All</a>,
+                        <a id="S2GselectNone_0" href="#" title="deselect all">None</a>
+                      </div>
+                      <div class="paginationWrapper" id="userPagination">
+                        <div class="pagination">Page:
+                          <a href="?q=adv_learnerlist&amp;centreFilter=&amp;regionFilter=&amp;courseFilter=&amp;groupFilter=&amp;showDemoTest=yes&amp;query=&amp;status=1&amp;page="
+                            title="go back a page" class="arrow">«</a>
+                          <a href="?q=adv_learnerlist&amp;centreFilter=&amp;regionFilter=&amp;courseFilter=&amp;groupFilter=&amp;showDemoTest=yes&amp;query=&amp;status=1&amp;page=1"
+                            class="current" title="page 1">1</a>
+                          <a href="?q=adv_learnerlist&amp;centreFilter=&amp;regionFilter=&amp;courseFilter=&amp;groupFilter=&amp;showDemoTest=yes&amp;query=&amp;status=1&amp;page=2"
+                            class="number" title="page 2">2</a>
+                          <a href="?q=adv_learnerlist&amp;centreFilter=&amp;regionFilter=&amp;courseFilter=&amp;groupFilter=&amp;showDemoTest=yes&amp;query=&amp;status=1&amp;page=3"
+                            class="number" title="page 3">3</a>
+                          <a href="?q=adv_learnerlist&amp;centreFilter=&amp;regionFilter=&amp;courseFilter=&amp;groupFilter=&amp;showDemoTest=yes&amp;query=&amp;status=1&amp;page=2"
+                            title="go forward a page" class="arrow">»</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="actions" style="display: flex;">Action:&nbsp;&nbsp;&nbsp;
+                      <input style="margin-right: 10px;" id="S2Gassigncourses_0" type="button" value="Assign courses">
+                      <input id="lDisable" type="button" value="Disable">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
 </main>
+<app-footer></app-footer>
