@@ -10,71 +10,65 @@ namespace WESTDemo.Infrastracture.Repositories
 {
     public class LearnerRepository : Repository<Learner>, ILearnerRepository
     {
-        public LearnerRepository(UsersContext context) : base(context)
-        {
-        }
+        public LearnerRepository(UsersContext context) : base(context) { }
 
         public override async Task<List<Learner>> GetAll()
         {
-            return await Db.Learners.AsNoTracking()
-                .Include(l => l.Group)
-                .Include(l => l.LearnerStatus)
-                // .Include(l => l.User).ThenInclude(u => u.Organisation)
-                .Include(l => l.User.Organisation)
-                .Include(l => l.User.Type)
+            return await GetLearnersFullDetail()
                 .ToListAsync();
         }
 
         public async Task<Learner> GetLearnerByUser(int userId)
         {
-            // i dont see as useful yet
-            // migth be useful
-            return await Db.Learners.AsNoTracking()
+            return await GetLearnersFullDetail()
                 .FirstOrDefaultAsync(l => l.User.Id == userId);
         }
 
         public async Task<IEnumerable<Learner>> GetLearnersByGroup(int groupId)
         {
-            return await Db.Learners.AsNoTracking()
-                .Include(l => l.User)
-                .Include(l => l.Group)
-                .Include(l => l.LearnerStatus)
+            return await GetLearnersFullDetail()
                 .Where(l => l.GroupId == groupId)
-                .ToListAsync();
+                .ToListAsync();    
         }
 
         public async Task<IEnumerable<Learner>> GetLearnersByOrganisation(int organisationId)
         {
-            return await Db.Learners.AsNoTracking()
-                .Include(l => l.User)
-                .Include(l => l.Group)
-                .Include(l => l.LearnerStatus)
+            return await GetLearnersFullDetail()
                 .Where(l => l.User.OrganisationId == organisationId)
                 .ToListAsync();
         }
 
         public override async Task<Learner> GetById(int id)
         {
-            return await Db.Learners
-                .Include(l => l.User)
-                .Include(l => l.LearnerStatus)
+            return await GetLearnersFullDetail()
                 .FirstOrDefaultAsync(l => l.Id == id);
         }
 
         public async Task<IEnumerable<Learner>> SearchLearners(string searchedValue)
         {
-            return await Db.Learners
-                .Include(l => l.User)
+            return await GetLearnersFullDetail()
                 .Where(l => l.User.Username.ToLower().Contains(searchedValue.ToLower()) ||
                     l.User.FirstName.ToLower().Contains(searchedValue.ToLower()) ||
                     l.User.LastName.ToLower().Contains(searchedValue.ToLower()))
                 .ToListAsync();
         }
 
-        public async Task UpdateLearnerStatus(LearnerStatus learnerStatus)
+        public async Task<IEnumerable<Learner>> UpdateLearnerStatus(LearnerStatus learnerStatus)
         {
             Db.LearnerStatuses.Add(learnerStatus);
             await Db.SaveChangesAsync();
+
+            return await GetLearnersFullDetail()
+                .Where(l => l.Id == learnerStatus.LearnerId )
+                .ToListAsync();
+        }
+        public IQueryable<Learner> GetLearnersFullDetail()
+        {
+            return  Db.Learners.AsNoTracking()
+                .Include(l => l.User)
+                .Include(l => l.Group)
+                .Include(l => l.LearnerStatus).ThenInclude(lt => lt.Course)
+                .Include(l => l.User.Organisation);
         }
     }
 

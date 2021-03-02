@@ -17,7 +17,7 @@ namespace WESTDemo.Domain.Interfaces
         Task<IEnumerable<Learner>> GetLearnersByOrganisation(int organisationId);
         Task<IEnumerable<Learner>> GetLearnersByGroup(int groupId);
         Task<Learner> GetLearnerByUser(int userId);
-        Task<Learner> UpdateLearnerStatus(LearnerStatus learnerStatus);
+        Task<IEnumerable<Learner>> UpdateLearnerStatus(LearnerStatus learnerStatus);
 
     }
 }

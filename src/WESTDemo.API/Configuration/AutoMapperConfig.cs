@@ -8,6 +8,7 @@ using WESTDemo.API.Dto.UserDto;
 using WESTDemo.API.Dto.UserTypeDto;
 using WESTDemo.Domain.Models;
 using WESTDemo.API.Dto.LearnerStatusDto;
+using WESTDemo.API.Configuration.LearnerMap;
 
 namespace WESTDemo.API.Configuration
 {
@@ -35,9 +36,13 @@ namespace WESTDemo.API.Configuration
             CreateMap<Group, GroupResultDto>().ReverseMap();
             CreateMap<Learner, LearnerAddDto>().ReverseMap();
             CreateMap<Learner, LearnerEditDto>().ReverseMap();
-            CreateMap<Learner, LearnerResultDto>().ReverseMap();
+            CreateMap<LearnerAddDto, Learner>()
+                .ConvertUsing<LearnerAddConverter>();
+            CreateMap<LearnerEditDto, Learner>()
+                .ConvertUsing<LearnerEditConverter>();
+            CreateMap<Learner, LearnerResultDto>()
+                .ConvertUsing<LearnerResultConverter>();
             CreateMap<LearnerStatus, LearnerStatusAddDto>().ReverseMap();
-            CreateMap<LearnerStatus, LearnerStatusResultDto>().ReverseMap();
         }
     }
 }

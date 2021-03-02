@@ -11,29 +11,27 @@ namespace WESTDemo.Domain.Models
         private readonly IUserService _userService;
         private readonly IGroupService _groupService;
         private readonly ICourseService _courseService;
+        private readonly IOrganisationService _organisationService;
+        private const int LEARNER_USER_TYPE = 3;
 
         public LearnerService(ILearnerRepository learnerRepository,
                               IUserService userService,
                               IGroupService groupService,
-                              ICourseService courseService)
+                              ICourseService courseService,
+                              IOrganisationService organisationService)
         {
             _groupService = groupService;
             _userService = userService;
             _learnerRepository = learnerRepository;
             _courseService = courseService;
+            _organisationService = organisationService;
         }
         public async Task<Learner> Add(Learner newLearner)
         {
-            // add user
-            // if unsuccessfull return null
-            // check valid group
-            // check course valdity (course/status should not be added here i guess? hmm)
-            // add learner
-            var user = await _userService.Add(newLearner.User);
-            if (user == null) return null;
+            newLearner.User.TypeId = LEARNER_USER_TYPE;
 
-            var group = await _groupService.GetById(newLearner.GroupId);
-            if (group == null) return null;
+            if (await _userService.Add(newLearner.User) == null) return null;
+            if (await _groupService.GetById(newLearner.GroupId) == null) return null;
 
             await _learnerRepository.Add(newLearner);
 
@@ -72,7 +70,6 @@ namespace WESTDemo.Domain.Models
 
         public async Task<bool> Remove(Learner learner)
         {
-            // delete user too?
             await _learnerRepository.Remove(learner);
             await _userService.Remove(learner.User);
             return true;
@@ -80,52 +77,32 @@ namespace WESTDemo.Domain.Models
 
         public async Task<IEnumerable<Learner>> Search(string searchValue)
         {
-            //approach#1
-            //using users service, search by user type
-            //approach#2
-            //search by predicate, but username only
-            // create a new method similar like searchusers
             return await _learnerRepository
                             .Search(l => l.User.Username.ToLower().Contains(searchValue.ToLower())
                                 );
         }
         public async Task<IEnumerable<Learner>> SearchLearners(string searchValue)
         {
-            //approach#1
-            //using users service, search by user type
-            //approach#2
-            //search by predicate, but username only
-            // create a new method similar like searchusers
             return await _learnerRepository
                             .SearchLearners(searchValue);
         }
 
         public async Task<Learner> Update(Learner learner)
         {
-            // approach #1
-            // accept UserID from request
-            // derive learner id from userId
-            // approach #2
-            // accept LearnerID from request
-            // derive User id from learnerId
-            //approach#1
-            // var originalLearner = await _learnerRepository
-            //                     .GetLearnerByUser(learner.User.Id);
-            // if(originalLearner == null) return null;
-            // learner.Id = originalLearner.Id;
-            
-            //approach #2
             var originalLearner = await _learnerRepository.GetById(learner.Id);
             if (originalLearner == null) return null;
             
             learner.User.Id = originalLearner.User.Id;
-            
+
+            if (await _groupService.GetById(learner.GroupId) == null) return null;
+            if (await _organisationService.GetById(learner.User.OrganisationId) == null) return null;
+
             await _learnerRepository.Update(learner);
             return learner;
 
         }
 
-        public async Task<Learner> UpdateLearnerStatus(LearnerStatus learnerStatus)
+        public async Task<IEnumerable<Learner>> UpdateLearnerStatus(LearnerStatus learnerStatus)
         {
             var learner = await _learnerRepository.GetById(learnerStatus.LearnerId);
             if (learner == null) return null;
@@ -133,18 +110,10 @@ namespace WESTDemo.Domain.Models
             var course = await _courseService.GetById(learnerStatus.CourseId);
             if (course == null) return null;
 
-            // course already assigned to learner?
-
             if (learner.LearnerStatus.Any(c => c.CourseId == learnerStatus.CourseId)) return null;
 
-            // either create a new learner status, or just add use update learner? errr.. not sure
+            return await _learnerRepository.UpdateLearnerStatus(learnerStatus);
 
-            //approach#1 , update learnerstatus
-
-            await _learnerRepository.UpdateLearnerStatus(learnerStatus);
-
-            return learner;
-       
         }
 
     }

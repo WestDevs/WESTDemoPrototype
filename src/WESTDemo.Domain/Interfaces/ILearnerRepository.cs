@@ -14,6 +14,6 @@ namespace WESTDemo.Domain.Interfaces
         Task<Learner> GetLearnerByUser(int userId);
         new Task<Learner> GetById(int id);
         Task<IEnumerable<Learner>> SearchLearners(string searchedValue);
-        Task UpdateLearnerStatus(LearnerStatus learnerStatus);
+        Task<IEnumerable<Learner>> UpdateLearnerStatus(LearnerStatus learnerStatus);
     }
 }

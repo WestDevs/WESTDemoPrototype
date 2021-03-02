@@ -74,12 +74,14 @@ namespace WESTDemo.Domain.Services
             return await _userRepository.SearchUsers(searchedValue);
         }
 
-        public async Task<User> Update(User user)
+        public async Task<User> Update(User updatedUser)
         {
-            if (_userRepository.Search(b => b.FirstName == user.FirstName && b.Id != user.Id).Result.Any())
-                return null;
+            var user = await _userRepository.GetById(updatedUser.Id);
 
-            await _userRepository.Update(user);
+            if (user == null) return null;
+            updatedUser.TypeId = user.TypeId;
+
+            await _userRepository.Update(updatedUser);
             return user;
         }
     }

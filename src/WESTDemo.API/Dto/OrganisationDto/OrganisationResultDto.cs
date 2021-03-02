@@ -8,6 +8,6 @@ namespace WESTDemo.API.Dto.OrganisationDto
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public IEnumerable<CentreResultDto> Centres { get; set; }
+        // public IEnumerable<CentreResultDto> Centres { get; set; }
     }
 }

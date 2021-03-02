@@ -19,7 +19,6 @@ namespace WESTDemo.API.Controllers
         {
             _learnerService = learnerService;
             _mapper = mapper;
-
         }
 
         [HttpGet]
@@ -42,53 +41,39 @@ namespace WESTDemo.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(LearnerAddDto newLearner)
         {
+            if(!ModelState.IsValid) return BadRequest("Invalid Learner details");
 
-            // when adding, observe the difference of User ID and Learner ID
-            if(!ModelState.IsValid) return BadRequest();
-
-            // map userdetails to user
-            // map learner to learner
-
-            var user = _mapper.Map<User>(newLearner.UserDetails);
-            var learner = _mapper.Map<Learner>(newLearner);
-            learner.User = user;
-
-            var learnerResult = await _learnerService.Add(learner);
+            var learnerResult = await _learnerService.Add(_mapper.Map<Learner>(newLearner));
 
             if (learnerResult == null) return BadRequest("Learner not added successfully");
 
             return Ok(_mapper.Map<LearnerResultDto>(learnerResult));
-
         }
 
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, LearnerEditDto updatedLearner)
-        {   // can work either accept user id or learner id, whichever
-            // current implementation, accepts learnerid
-            var user = _mapper.Map<User>(updatedLearner);
-            var learner = _mapper.Map<Learner>(updatedLearner);
-            learner.User = user;
-            learner.User.TypeId = updatedLearner.TypeId; 
+        {   
+            if (id != updatedLearner.Id) return BadRequest();
 
-            var learnerResult = await _learnerService.Update(learner);
+            var learner = await _learnerService.GetById(id);
+            if (learner == null) return NotFound("Learner not found");
+
+            var learnerResult = await _learnerService.Update(_mapper.Map<Learner>(updatedLearner));
 
             if(learnerResult == null) return BadRequest("Learner not updated");
 
             return Ok(_mapper.Map<LearnerResultDto>(learnerResult));
-
         }
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Remove(int id)
         {
             var learner = await _learnerService.GetById(id);
-
-            if (learner == null) return NotFound("Learner do not exist");
+            if (learner == null) return NotFound("Learner not found");
 
             if (!await _learnerService.Remove(learner)) return BadRequest("Failed to delete learner");
 
             return Ok();
-
         }
 
         [HttpGet("search/{searchValue}")]
@@ -99,7 +84,6 @@ namespace WESTDemo.API.Controllers
             if (learners == null || learners.Count == 0) return NotFound("No learner found");
 
             return Ok(_mapper.Map<IEnumerable<LearnerResultDto>>(learners));
-
         }
 
         [HttpGet("org/{organisationId}")]
@@ -111,9 +95,6 @@ namespace WESTDemo.API.Controllers
 
             return Ok(_mapper.Map<IEnumerable<LearnerResultDto>>(learners));
         }
-
-
-        // get by group
         
         [HttpGet("group/{groupId}")]
         public async Task<IActionResult> GetLearnersByGroup(int groupId)
@@ -125,18 +106,22 @@ namespace WESTDemo.API.Controllers
             return Ok(_mapper.Map<IEnumerable<LearnerResultDto>>(learners));
         }
 
-        [HttpPost("update-status/{learnerId:int}")]
-        public async Task<IActionResult> UpdateLearnerStatus(int learnerId, LearnerStatusAddDto learnerStatus)
+        [HttpPost("update-status/{id:int}")]
+        public async Task<IActionResult> UpdateLearnerStatus(int id, LearnerStatusAddDto learnerStatus)
         {
-            // get learner, if null return bad request
+            if (id != learnerStatus.LearnerId) return BadRequest();
+
+            if(!ModelState.IsValid) return BadRequest("Invalid Learner details");
+            
+            var learner = await _learnerService.GetById(id);
+            if (learner == null) return NotFound("Learner not found");
+
             var newLearnerStatus = _mapper.Map<LearnerStatus>(learnerStatus);
-            var learner = await _learnerService.UpdateLearnerStatus(newLearnerStatus);
+            var learnerStatusResult = await _learnerService.UpdateLearnerStatus(newLearnerStatus);
 
-            if (learner == null) return BadRequest("Update unsuccessful");
+            if (learnerStatusResult == null) return BadRequest("Update unsuccessful");
 
-            return Ok(_mapper.Map<LearnerResultDto>(learner));
-
+            return Ok(_mapper.Map<IEnumerable<LearnerResultDto>>(learnerStatusResult));
         }
-
     }
 }

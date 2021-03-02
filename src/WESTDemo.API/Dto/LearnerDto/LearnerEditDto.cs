@@ -5,7 +5,7 @@ namespace WESTDemo.API.Dto.LearnerDto
 {
     public class LearnerEditDto : UserEditDto
     {        
-        private const int _typeId = 2;
+        private const int _typeId = 3;
         public int TypeId { get => _typeId; }
 
         [Required(ErrorMessage = "The field {0} is required")]
