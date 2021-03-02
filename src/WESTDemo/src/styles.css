@@ -28,11 +28,15 @@ WESAT Blue : #35495C */
 }
 
 .bg-secondary-grey {
-    background-color: #919191;
+    background-color: #919191 !important;
 }
 
-.bg-login-card {
+.bg-layout-card {
     background-color: #DDDDDD;
+}
+
+.bg-form-card {
+    background-color: #F5F5F5;
 }
 
 .bg-login-nav {
