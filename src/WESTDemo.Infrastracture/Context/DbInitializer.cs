@@ -14,10 +14,10 @@ namespace WESTDemo.Infrastracture.Context
 
             var userTypes = new UserType[]
             {
-                new UserType { Name = "Admin"},
-                new UserType { Name = "Tutor"},
-                new UserType { Name = "Learner"},
-                new UserType { Name = "Other"}
+                new UserType { Name = "Admin" },
+                new UserType { Name = "Tutor" },
+                new UserType { Name = "Learner" },
+                new UserType { Name = "Other" }
             };
 
             foreach (var userType in userTypes)
@@ -113,11 +113,11 @@ namespace WESTDemo.Infrastracture.Context
             if (context.Courses.Any()) return;
 
             var courses = new Course[] {
-                new Course { Name = "Application of Number 2015" , IconPath = "./assets/esm.png" },
-                new Course { Name = "Communication (English) 2015" , IconPath = "./assets/esl.png" },
-                new Course { Name = "Communication (Welsh) 2015" , IconPath = "./assets/esw.png" },
-                new Course { Name = "Digital Literacy" , IconPath = "./assets/esd.png" },
-                new Course { Name = "ESOL" , IconPath = "./assets/esol.png" }
+                new Course { Name = "Application of Number 2015" , IconPath = "./assets/image/esm.png" },
+                new Course { Name = "Communication (English) 2015" , IconPath = "./assets/image/esl.png" },
+                new Course { Name = "Communication (Welsh) 2015" , IconPath = "./assets/image/esw.png" },
+                new Course { Name = "Digital Literacy" , IconPath = "./assets/image/esd.png" },
+                new Course { Name = "ESOL" , IconPath = "./assets/image/esol.png" }
             };
             foreach (var course in courses)
                 context.Courses.Add(course);
