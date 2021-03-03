@@ -23,6 +23,8 @@ import { NgbdDatepickerPopup } from './datepicker/datepicker-popup';
 import { LoginComponent } from './login/login.component';
 import { NavTabComponent } from './nav-tab/nav-tab.component';
 import { FooterComponent } from './footer/footer.component';
+import { ContainerComponent } from './container/container.component';
+import { LearnerResourceComponent } from './learner-resource/learner-resource.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { FooterComponent } from './footer/footer.component';
     NgbdDatepickerPopup,
     LoginComponent,
     NavTabComponent,
-    FooterComponent
+    FooterComponent,
+    ContainerComponent,
+    LearnerResourceComponent
   ],
   imports: [
     BrowserModule,
