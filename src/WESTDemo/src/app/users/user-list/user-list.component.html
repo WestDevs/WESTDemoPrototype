@@ -26,8 +26,7 @@
                             <label class="col-lg-2 col-form-label">Courses: </label>
                             <div class="col-lg-4">
                                 <select class="form-control">
-                                  <option value="Test1">Test1</option>
-                                  <option value="Test2">Test2</option>
+                                    <option *ngFor="let course of courses" value="course.id">{{course.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -35,8 +34,7 @@
                             <label class="col-lg-2 col-form-label">Groups: </label>
                             <div class="col-lg-4">
                                 <select class="form-control">
-                                  <option value="Test1">Test1</option>
-                                  <option value="Test2">Test2</option>
+                                    <option *ngFor="let group of groups" value="group.id">{{group.name}}</option>
                                 </select>
                             </div>
                         </div>
