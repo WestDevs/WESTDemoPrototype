@@ -26,6 +26,8 @@ import { FooterComponent } from './footer/footer.component';
 import { GroupService } from './_services/group.service';
 import { CentreService } from './_services/centre.service';
 import { CourseService } from './_services/course.service';
+import { ContainerComponent } from './container/container.component';
+import { LearnerResourceComponent } from './learner-resource/learner-resource.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { CourseService } from './_services/course.service';
     NgbdDatepickerPopup,
     LoginComponent,
     NavTabComponent,
-    FooterComponent
+    FooterComponent,
+    ContainerComponent,
+    LearnerResourceComponent
   ],
   imports: [
     BrowserModule,
