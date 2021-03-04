@@ -83,37 +83,17 @@
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                       <!-- Learner 1 <span class="text-danger">(D)</span> [ABLearner-SB] -->
-                                      <a>{{learner.username}}</a>
+                                      <a>{{learner.firstname}}</a>
                                     </label>
                                 </div>
                             </th>
                             <td>{{learner.group.name}}</td>
-                            <td>{{learner.learnerStatus.name}}</td>
+                            <td>
+                                <span *ngFor="let course of learner.learnerStatus">
+                                    <img src={{course.iconPath}} title={{course.name}}>
+                                </span>
+                            </td>
                         </tr>
-                        <!-- <tr class="bg-form-card">
-                            <th class="fw-normal">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                      Learner 1 <span class="text-danger">(D)</span> [ABLearner-SB]
-                                    </label>
-                                </div>
-                            </th>
-                            <td>Group 2</td>
-                            <td>Thornton</td>
-                        </tr> 
-                        <tr class="bg-form-card">
-                            <th class="fw-normal">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                      Learner 1 <span class="text-danger">(D)</span> [ABLearner-SB]
-                                    </label>
-                                </div>
-                            </th>
-                            <td>Group 3</td>
-                            <td>Thornton</td>
-                        </tr>-->
                     </tbody>
                 </table>
             </div>
