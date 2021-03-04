@@ -11,12 +11,36 @@
                 <!-- <h2 class="text-center text-primary">User</h2> -->
                 <input type="hidden" name="id" #id="ngModel" [(ngModel)]="formData.id">
                 <div class="form-group">
+                    <input name="username" #username="ngModel" [(ngModel)]="formData.username" class="form-control" required [ngClass]="{'is-invalid': form.controls['username']?.invalid && form.controls['username']?.touched}" placeholder="Username">
+                    <div class="invalid-feedback" *ngIf="username.invalid && username.touched">Please inform the user's .</div>
+                </div>
+                <div class="form-group">
                     <input name="firstName" #firstName="ngModel" [(ngModel)]="formData.firstName" class="form-control" required [ngClass]="{'is-invalid': form.controls['firstName']?.invalid && form.controls['firstName']?.touched}" placeholder="First Name">
                     <div class="invalid-feedback" *ngIf="firstName.invalid && firstName.touched">Please inform the user's first name.</div>
                 </div>
                 <div class="form-group">
                     <input name="lastName" #lastName="ngModel" [(ngModel)]="formData.lastName" class="form-control" placeholder="Last Name" [ngClass]="{'is-invalid': form.controls['lastName']?.invalid && form.controls['lastName']?.touched}" required>
                     <div class="invalid-feedback" *ngIf="lastName.invalid && lastName.touched">Please inform the user's last name.</div>
+                </div>
+                <div class="form-group">
+                    <input name="typeId" #typeId="ngModel" [(ngModel)]="formData.typeId" class="form-control" placeholder="User Type" [ngClass]="{'is-invalid': form.controls['typeId']?.invalid && form.controls['typeId']?.touched}" required>
+                    <div class="invalid-feedback" *ngIf="typeId.invalid && typeId.touched">Please inform the user.</div>
+                </div>
+                <div class="form-group">
+                    <input name="organisationId" #organisationId="ngModel" [(ngModel)]="formData.organisationId" class="form-control" placeholder="Organisation" [ngClass]="{'is-invalid': form.controls['organisationId']?.invalid && form.controls['organisationId']?.touched}"
+                        required>
+                    <div class="invalid-feedback" *ngIf="organisationId.invalid && organisationId.touched">Please inform the user.</div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Birth Date" id="birthdate" name="birthdate" ngbDatepicker #d="ngbDatepicker" #birthdate="ngModel" [(ngModel)]="formData.birthdate" class="form-control" type="text" [(ngModel)]="formData.birthdate" [minDate]="{year: 1800, month: 1, day: 1}"
+                            [ngClass]="{'is-invalid': form.controls['birthdate']?.invalid && form.controls['birthdate']?.touched}" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary fa fa-calendar-alt" (click)="d.toggle()" type="button"></button>
+                        </div>
+                        <div class="invalid-feedback" *ngIf="birthdate.invalid && birthdate.touched">Please inform the birth date
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group text-center">
                     <button class="btn btn-success mr-2" [disabled]="form.invalid" type="submit">Save</button>

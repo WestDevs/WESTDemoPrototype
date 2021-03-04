@@ -28,6 +28,7 @@ import { CentreService } from './_services/centre.service';
 import { CourseService } from './_services/course.service';
 import { ContainerComponent } from './container/container.component';
 import { LearnerResourceComponent } from './learner-resource/learner-resource.component';
+import { OrganisationComponent } from './organisation/organisation.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { LearnerResourceComponent } from './learner-resource/learner-resource.co
     NavTabComponent,
     FooterComponent,
     ContainerComponent,
-    LearnerResourceComponent
+    LearnerResourceComponent,
+    OrganisationComponent
   ],
   imports: [
     BrowserModule,
