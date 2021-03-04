@@ -29,6 +29,7 @@ import { CourseService } from './_services/course.service';
 import { ContainerComponent } from './container/container.component';
 import { LearnerResourceComponent } from './learner-resource/learner-resource.component';
 import { LearnerService } from './_services/learner.service'; 
+import { OrganisationComponent } from './organisation/organisation.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { LearnerService } from './_services/learner.service';
     NavTabComponent,
     FooterComponent,
     ContainerComponent,
-    LearnerResourceComponent
+    LearnerResourceComponent,
+    OrganisationComponent
   ],
   imports: [
     BrowserModule,

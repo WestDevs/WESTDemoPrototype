@@ -12,6 +12,10 @@
 
 
 appsettings.json
+appsettings.Development.json
+
+#angular dev ports
+environment.ts
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
