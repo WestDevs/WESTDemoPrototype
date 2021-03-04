@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmationDialogService } from 'src/app/_services/confirmation-dialog.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { CourseService } from 'src/app/_services/course.service';
+import { GroupService } from 'src/app/_services/group.service';
 
 @Component({
   selector: 'app-user-list',
@@ -16,14 +18,20 @@ export class UserListComponent implements OnInit {
   public listComplet: any;
   public searchTerm: string;
   public searchValueChanged: Subject<string> = new Subject<string>();
+  public courses: any;
+  public groups: any;
 
   constructor(private router: Router,
               private service: UserService,
               private toastr: ToastrService,
+              private _courseService: CourseService,
+              private _groupService: GroupService,
               private confirmationDialogService: ConfirmationDialogService) { }
 
   ngOnInit() {
     this.getValues();
+    this.getCourses();
+    this.getGroups();
 
     this.searchValueChanged.pipe(debounceTime(1000))
     .subscribe(() => {
@@ -38,7 +46,20 @@ export class UserListComponent implements OnInit {
       this.users = users;
       this.listComplet = users;
       console.log(users);
+    });
+  }
 
+  private getCourses() {
+    this._courseService.getCourse().subscribe(courses => {
+      this.courses = courses;
+      this.listComplet = courses;
+    });
+  }
+  
+  private getGroups() {
+    this._groupService.getGroup().subscribe(groups => {
+      this.groups = groups;
+      this.listComplet = groups;
     });
   }
 

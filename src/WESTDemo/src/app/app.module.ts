@@ -23,6 +23,12 @@ import { NgbdDatepickerPopup } from './datepicker/datepicker-popup';
 import { LoginComponent } from './login/login.component';
 import { NavTabComponent } from './nav-tab/nav-tab.component';
 import { FooterComponent } from './footer/footer.component';
+import { GroupService } from './_services/group.service';
+import { CentreService } from './_services/centre.service';
+import { CourseService } from './_services/course.service';
+import { ContainerComponent } from './container/container.component';
+import { LearnerResourceComponent } from './learner-resource/learner-resource.component';
+import { OrganisationComponent } from './organisation/organisation.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +41,10 @@ import { FooterComponent } from './footer/footer.component';
     NgbdDatepickerPopup,
     LoginComponent,
     NavTabComponent,
-    FooterComponent
+    FooterComponent,
+    ContainerComponent,
+    LearnerResourceComponent,
+    OrganisationComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +58,10 @@ import { FooterComponent } from './footer/footer.component';
   ],
   providers: [
     UserService,
-    ConfirmationDialogService
+    ConfirmationDialogService,
+    GroupService,
+    CentreService,
+    CourseService
   ],
   bootstrap: [AppComponent]
 })

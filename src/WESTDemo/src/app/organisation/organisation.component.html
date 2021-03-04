@@ -1,0 +1,24 @@
+<app-nav></app-nav>
+<nav class="navbar navbar-light border-bottom bg-login-nav">
+    <div class="container">
+        <h2 class="m-1 ps-4">Organisation</h2>
+    </div>
+</nav>
+<div class="container">
+    <div class="card rounded-0 border-0 bg-login-card">
+        <div class="card-body m-3">
+            <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off" class="col-md-5 form">
+                <h2 class="text-center text-primary">Organisation</h2>
+                <input type="hidden" name="id" #id="ngModel" [(ngModel)]="formData.id">
+                <div class="form-group">
+                    <input name="name" #name="ngModel" [(ngModel)]="formData.name" class="form-control" required [ngClass]="{'is-invalid': form.controls['name']?.invalid && form.controls['name']?.touched}" placeholder="Organisation">
+                    <div class="invalid-feedback" *ngIf="name.invalid && name.touched">Please inform the category.</div>
+                </div>
+                <div class="form-group text-center">
+                    <button class="btn btn-success mr-2" [disabled]="form.invalid" type="submit">Save</button>
+                    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

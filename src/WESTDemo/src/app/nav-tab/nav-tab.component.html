@@ -21,21 +21,55 @@
         <ul ngbNav #nav="ngbNav" class="nav nav-tabs border-0 d-flex flex-row flex-lg-row flex-column">
             <li ngbNavItem>
                 <a ngbNavLink class="nav-link py-lg-3 rounded-0 border-0 text-login">Users</a>
-                <!-- <ng-template ngbNavContent>First content</ng-template> -->
+                <ng-template ngbNavContent>
+                    <app-user-list></app-user-list>
+                </ng-template>
             </li>
             <li ngbNavItem>
                 <a ngbNavLink class="nav-link py-lg-3 rounded-0 border-0 text-login">Groups</a>
-                <!-- <ng-template ngbNavContent>Second content</ng-template> -->
+                <ng-template ngbNavContent>
+                    <nav class="navbar navbar-light border-bottom bg-login-nav">
+                        <div class="container">
+                            <h2 class="m-1 ps-4">Groups</h2>
+                        </div>
+                    </nav>
+
+                    <div class="container mb-3">
+                        <div class="card rounded-0 border-0 bg-layout-card">
+                            <div class="card-body m-lg-3">
+
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
             </li>
             <li ngbNavItem>
                 <a ngbNavLink class="nav-link py-lg-3 rounded-0 border-0 text-login">Learner Resource</a>
-                <!-- <ng-template ngbNavContent>Second content</ng-template> -->
+                <ng-template ngbNavContent>
+                    <app-learner-resource></app-learner-resource>
+                </ng-template>
             </li>
             <li ngbNavItem>
                 <a ngbNavLink class="nav-link py-lg-3 rounded-0 border-0 text-login">Reports</a>
-                <!-- <ng-template ngbNavContent>Second content</ng-template> -->
+                <ng-template ngbNavContent>
+
+                    <nav class="navbar navbar-light border-bottom bg-login-nav">
+                        <div class="container">
+                            <h2 class="m-1 ps-4">Reports</h2>
+                        </div>
+                    </nav>
+
+                    <div class="container mb-3">
+                        <div class="card rounded-0 border-0 bg-layout-card">
+                            <div class="card-body m-lg-3">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </ng-template>
             </li>
         </ul>
     </div>
 </nav>
-<!-- <div [ngbNavOutlet]="nav"></div> -->
+<div [ngbNavOutlet]="nav"></div>

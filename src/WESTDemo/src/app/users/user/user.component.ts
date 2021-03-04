@@ -9,38 +9,51 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-users',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
   public formData: Users;
   public categories: any;
 
-  constructor(public service: UserService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private toastr: ToastrService) { }
+  constructor(
+    public service: UserService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.resetForm();
     let id;
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       id = params['id'];
     });
 
     if (id != null) {
-      this.service.getUserById(id).subscribe(user => {
-        this.formData = user;
-      }, err => {
-        this.toastr.error('An error occurred on get the record.');
-      });
+      this.service.getUserById(id).subscribe(
+        (user) => {
+          this.formData = user;
+          const birthdate = new Date(user.birthdate);
+          this.formData.birthdate = {
+            year: birthdate.getFullYear(),
+            month: birthdate.getMonth(),
+            day: birthdate.getDay(),
+          };
+        },
+        (err) => {
+          this.toastr.error('An error occurred on get the record.');
+        }
+      );
     } else {
       this.resetForm();
     }
   }
 
   public onSubmit(form: NgForm) {
-    form.value.userId = Number(form.value.userId);
+    // form.value.id = Number(4);
+    form.value.birthdate = this.convertStringToDate(form.value.birthdate);
     if (form.value.id === 0) {
+      console.log(form)
       this.insertRecord(form);
     } else {
       this.updateRecord(form);
@@ -48,23 +61,29 @@ export class UserComponent implements OnInit {
   }
 
   public insertRecord(form: NgForm) {
-    this.service.addUser(form.form.value).subscribe(() => {
-      this.toastr.success('Registration successful');
-      this.resetForm(form);
-      this.router.navigate(['/users']);
-    }, () => {
-      this.toastr.error('An error occurred on insert the record.');
-    });
+    this.service.addUser(form.form.value).subscribe(
+      () => {
+        this.toastr.success('Registration successful');
+        this.resetForm(form);
+        this.router.navigate(['/users']);
+      },
+      () => {
+        this.toastr.error('An error occurred on insert the record.');
+      }
+    );
   }
 
   public updateRecord(form: NgForm) {
-    this.service.updateUser(form.form.value.id, form.form.value).subscribe(() => {
-      this.toastr.success('Updated successful');
-      this.resetForm(form);
-      this.router.navigate(['/users']);
-    }, () => {
-      this.toastr.error('An error occurred on update the record.');
-    });
+    this.service.updateUser(form.form.value.id, form.form.value).subscribe(
+      () => {
+        this.toastr.success('Updated successful');
+        this.resetForm(form);
+        this.router.navigate(['/users']);
+      },
+      () => {
+        this.toastr.error('An error occurred on update the record.');
+      }
+    );
   }
 
   public cancel() {
@@ -78,8 +97,16 @@ export class UserComponent implements OnInit {
 
     this.formData = {
       id: 0,
+      username: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      typeId: null,
+      organisationId: null,
+      birthdate: null,
     };
+  }
+
+  private convertStringToDate(date) {
+    return new Date(`${date.year}-${date.month}-${date.day}`);
   }
 }
