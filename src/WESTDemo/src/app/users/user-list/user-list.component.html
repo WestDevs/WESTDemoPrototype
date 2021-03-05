@@ -81,9 +81,9 @@
                             <th class="align-middle">Courses</th>
                         </tr>
                     </thead>
-                    <div class="text-danger" *ngIf = "!learners?.length"> {{searchResult}} </div>
+                    <!-- <div class="text-danger" *ngIf = "!learners?.length"> {{searchResult}} </div> -->
                     <tbody *ngIf = "learners?.length">
-                        <div class="text-danger" *ngIf = "!learners?.length"> {{searchResult}} </div>
+                        <!-- <div class="text-danger" *ngIf = "!learners?.length"> {{searchResult}} </div> -->
                         <tr class="bg-form-card" *ngFor="let learner of learners"  >
                             <th class="fw-normal">
                                 <div class="form-check">
