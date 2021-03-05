@@ -32,7 +32,7 @@ export class LearnerService {
         return this.http.get<Learner>(this.baseUrl + 'learner/' + id);
     }
 
-    // public searchLearner(searchedValue: string): Observable<Learner[]> {
-    //     return this.http.get<Learner[]>(`${this.baseUrl}learners/search-learner/${searchedValue}`);
-    // }
+    public searchLearner(searchedValue: string): Observable<Learner[]> {
+        return this.http.get<Learner[]>(`${this.baseUrl}learner/search/${searchedValue}`);
+    }
 }

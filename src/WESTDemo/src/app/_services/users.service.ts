@@ -33,6 +33,6 @@ export class UserService {
     }
 
     public searchUsers(searchedValue: string): Observable<Users[]> {
-        return this.http.get<Users[]>(`${this.baseUrl}users/search-book-with-category/${searchedValue}`);
+        return this.http.get<Users[]>(`${this.baseUrl}learner/search/${searchedValue}`);
     }
 }

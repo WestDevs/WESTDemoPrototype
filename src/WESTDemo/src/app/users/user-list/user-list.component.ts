@@ -8,6 +8,11 @@ import { debounceTime } from 'rxjs/operators';
 import { CourseService } from 'src/app/_services/course.service';
 import { GroupService } from 'src/app/_services/group.service';
 import { LearnerService } from 'src/app/_services/learner.service';
+import { Learner } from 'src/app/_models/Learner';
+import { textChangeRangeIsUnchanged } from 'typescript';
+import { Group } from 'src/app/_models/Group';
+import { Course } from 'src/app/_models/Course';
+// import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-user-list',
@@ -16,12 +21,34 @@ import { LearnerService } from 'src/app/_services/learner.service';
 })
 export class UserListComponent implements OnInit {
   public users: any;
-  public listComplet: any;
-  public searchTerm: string;
-  public searchValueChanged: Subject<string> = new Subject<string>();
-  public courses: any;
-  public groups: any;
-  public learners: any;
+  public listComplete: Learner[];
+  public _searchTerm = "";
+  // public searchValueChanged: Subject<string> = new Subject<string>();
+  public courses: Course[];
+  public groups: Group[];
+  public learners: Learner[];
+  private _courseFilter: number = 0;
+  private _groupFilter: number = 0;
+  get searchTerm(): string {
+    return this._searchTerm;
+  }
+  set searchTerm(value: string) {
+    this._searchTerm=value;
+  }
+  get courseFilter(): number {
+    return this._courseFilter;
+  }
+  set courseFilter(value: number) {
+    this._courseFilter = value;
+    this.search();
+  }
+  get groupFilter(): number {
+    return this._groupFilter;
+  }
+  set groupFilter(value: number) {
+    this._groupFilter = value;
+    this.search();
+  }
 
   constructor(private router: Router,
               private service: UserService,
@@ -37,10 +64,10 @@ export class UserListComponent implements OnInit {
     this.getGroups();
     this.getLearners();
 
-    this.searchValueChanged.pipe(debounceTime(1000))
-    .subscribe(() => {
-      this.search();
-    });
+    // this.searchValueChanged.pipe(debounceTime(1000))
+    // .subscribe(() => {
+    //   this.search();
+    // });
   }
 
 
@@ -48,33 +75,37 @@ export class UserListComponent implements OnInit {
 
     this.service.getUsers().subscribe(users => {
       this.users = users;
-      this.listComplet = users;
-      console.log(users);
     });
   }
 
   private getCourses() {
     this._courseService.getCourse().subscribe(courses => {
       this.courses = courses;
-      this.listComplet = courses;
     });
   }
   
   private getGroups() {
     this._groupService.getGroup().subscribe(groups => {
       this.groups = groups;
-      this.listComplet = groups;
     });
   }
 
   private getLearners() {
     this._learnerService.getLearner().subscribe(learners => {
       this.learners = learners;
-      this.listComplet = learners;
-      console.log(learners);
+      this.listComplete = learners;
       
     });
   }
+  // private searchLearner(searchValue: string) {
+  //   this._learnerService.searchLearner(searchValue).subscribe(learners => {
+  //     this.learners = learners;
+  //   }, error => {
+  //     console.log(error.error);
+  //     this.searchResult = error.error;
+  //     this.learners = [];
+  //   });
+  // }
 
   public addUser() {
     this.router.navigate(['/user']);
@@ -97,31 +128,51 @@ export class UserListComponent implements OnInit {
       .catch(() => '');
   }
 
-  // Use the code below if you want to filter only using the front end;
-  // public search() {
-  //   const value = this.searchTerm.toLowerCase();
-  //   this.books = this.listComplet.filter(
-  //     book => book.name.toLowerCase().startsWith(value, 0) ||
-  //       book.author.toLowerCase().startsWith(value, 0) ||
-  //       book.description.toString().startsWith(value, 0) ||
-  //       book.value.toString().startsWith(value, 0) ||
-  //       book.publishDate.toString().startsWith(value, 0));
+  // public searchUsers() {
+  //   this.searchValueChanged.next();
   // }
 
-  public searchUsers() {
-    this.searchValueChanged.next();
+  public search() {
+      // this.searchLearner(this.searchTerm); commented out API search
+      this.learners = this.listComplete;
+      console.log("before " + this.learners);
+      this.searchByNames();
+      console.log("1" + this.learners);
+      this.searchByCourse();
+      console.log("2" + this.learners);
+      this.searchByGroup();
+      console.log("3" + this.learners);
   }
 
-  private search() {
-    if (this.searchTerm !== '') {
-      this.service.searchUsers(this.searchTerm).subscribe(user => {
-        this.users = user;
-      }, error => {
-        this.users = [];
-      });
-    } else {
-      this.service.getUsers().subscribe(users => this.users = users);
-    }
+  public searchByCourse() {
+    const value = this.courseFilter;
+    if (value != 0)   
+    {
+      this.learners = this.learners?.filter(
+        l => l.learnerStatus?.find(
+          c => c.id === value));
+          console.log(this.learners);
+        }
+  }
+
+  public searchByNames() {
+    const value = this.searchTerm;
+    if (value !== "")   
+    {
+      this.learners = this.learners?.filter(
+        l => l.username.toLocaleLowerCase().indexOf(value) !== -1 || 
+            l.firstname.toLocaleLowerCase().indexOf(value) !== -1 || 
+            l.lastname.toLocaleLowerCase().indexOf(value) !== -1 ); 
+        }
+  }
+
+  public searchByGroup() {
+    const value = this.groupFilter;
+    if (value != 0)   
+    {
+      this.learners = this.learners?.filter(
+        l => l.group?.id === value);
+        }
   }
 
   

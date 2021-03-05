@@ -24,16 +24,21 @@
                         <div class="mb-3 row">
                             <label class="col-lg-2 col-form-label">Courses: </label>
                             <div class="col-lg-4">
-                                <select class="form-control">
-                                    <option *ngFor="let course of courses" value="course.id">{{course.name}}</option>
+                                <select class="form-control" name="courseFilter" [(ngModel)] = "courseFilter" 
+                                    >
+                                    <option value=0 >All Courses</option>
+                                    <optgroup disabled label="= All Courses ="></optgroup>
+                                    <option *ngFor="let course of courses" [ngValue]="course.id">{{course.name}}</option>
                                 </select>
+                                
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label class="col-lg-2 col-form-label">Groups: </label>
                             <div class="col-lg-4">
-                                <select class="form-control">
-                                    <option *ngFor="let group of groups" value="group.id">{{group.name}}</option>
+                                <select class="form-control" name="groupFilter" [(ngModel)] = "groupFilter" >
+                                    <option value=0>All Groups</option>
+                                    <option *ngFor="let group of groups" [ngValue]="group.id">{{group.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -50,9 +55,9 @@
                                     <label class="form-check-label" for="flexRadioDefault1">Disabled</label>
                                 </div>
                             </div>
-                            <div class="col-lg-5 input-group ">
-                                <input type="password" class="form-control float-end">
-                                <button type="submit" class="btn btn-primary bg-primary-red border-0">Search</button>
+                            <div class="input-group col-lg-5 " id="searchBox">
+                                <input type="text" class="form-control float-end" [(ngModel)] = "searchTerm" name ="searchInput">
+                                <button type="submit" class="btn btn-primary bg-primary-red border-0" (click) = "search()">Search</button>
                             </div>
                         </div>
                     </form>
@@ -76,14 +81,15 @@
                             <th class="align-middle">Courses</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="bg-form-card" *ngFor="let learner of learners">
+                    <div class="text-danger" *ngIf = "!learners?.length"> {{searchResult}} </div>
+                    <tbody *ngIf = "learners?.length">
+                        <div class="text-danger" *ngIf = "!learners?.length"> {{searchResult}} </div>
+                        <tr class="bg-form-card" *ngFor="let learner of learners"  >
                             <th class="fw-normal">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                      <!-- Learner 1 <span class="text-danger">(D)</span> [ABLearner-SB] -->
-                                      <a>{{learner.firstname}}</a>
+                                        {{learner.firstname}} {{learner.lastname}} <span class="text-danger">(D)</span> [{{learner.username}}]
                                     </label>
                                 </div>
                             </th>
