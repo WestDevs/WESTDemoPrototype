@@ -16,35 +16,35 @@ namespace WESTDemo.Infrastracture.Repositories
 
         public override async Task<List<User>> GetAll()
         {
-            return await Db.Users.AsNoTracking()
+            return await DbSet.AsNoTracking()
                 .OrderBy(b => b.FirstName)
                 .ToListAsync();
         }
 
         public override async Task<User> GetById(int id)
         {
-            return await Db.Users.AsNoTracking()
+            return await DbSet.AsNoTracking()
                 .Where(b => b.Id == id)
                 .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<User>> GetUsersByOrganisation(int organisationId)
         {
-            return await Db.Users.AsNoTracking()
+            return await DbSet.AsNoTracking()
                 .Where(u => u.OrganisationId == organisationId)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<User>> GetUsersByUserType(int userTypeId)
         {
-            return await Db.Users.AsNoTracking()
+            return await DbSet.AsNoTracking()
                 .Where(u => u.TypeId == userTypeId)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<User>> SearchUsers(string searchedValue)
         {
-            return await Db.Users.AsNoTracking()
+            return await DbSet.AsNoTracking()
                 .Where(b => b.Username.Contains(searchedValue))
                 .ToListAsync();
         }

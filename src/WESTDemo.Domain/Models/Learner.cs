@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using WESTDemo.Domain.Models;
 
 namespace WESTDemo.Domain.Models
 {
@@ -7,6 +6,7 @@ namespace WESTDemo.Domain.Models
     {
         public int UserId { get; set; }
         public int GroupId { get; set; }
+        
         //Navigation Property
         public ICollection<LearnerStatus> LearnerStatus { get; set; }
         public Group Group { get; set; }

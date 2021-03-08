@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using WESTDemo.Domain.Interfaces;
 using WESTDemo.Domain.Models;
 using WESTDemo.Infrastracture.Context;
-using WESTDemo.Infrastracture.Repositories;
 
 namespace WESTDemo.Infrastracture.Repositories
 {
@@ -15,13 +14,13 @@ namespace WESTDemo.Infrastracture.Repositories
 
         public override async Task<List<Centre>> GetAll()
         {
-            return await Db.Centres.AsNoTracking()
+            return await DbSet.AsNoTracking()
                 .Include(c => c.Organisation)
                 .ToListAsync();
         }
         public async Task<IEnumerable<Centre>> GetCentresByOrganisation(int organisationId)
         {
-            return await Db.Centres.AsNoTracking()
+            return await DbSet.AsNoTracking()
                 .Where(c => c.OrganisationId == organisationId)
                 .ToListAsync();
         }

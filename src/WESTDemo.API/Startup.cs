@@ -45,7 +45,6 @@ namespace WESTDemo.API
 
             services.AddCors();
 
-
             services.ResolveDependencies();
         }
 

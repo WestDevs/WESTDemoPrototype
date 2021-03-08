@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using WESTDemo.Domain.Models;
-
 namespace WESTDemo.Domain.Models
 {
     public class Centre : Entity

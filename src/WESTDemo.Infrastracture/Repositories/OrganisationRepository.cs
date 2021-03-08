@@ -14,7 +14,7 @@ namespace WESTDemo.Infrastracture.Repositories
 
         public override async Task<List<Organisation>> GetAll()
         {
-            return await Db.Organisations.AsNoTracking()
+            return await DbSet.AsNoTracking()
                 .Include(o => o.Centres)
                 .ToListAsync();
         }
