@@ -29,6 +29,7 @@ namespace WESTDemo.Domain.Models
         public async Task<Learner> Add(Learner newLearner)
         {
             newLearner.User.TypeId = LEARNER_USER_TYPE;
+            newLearner.User.Status = true;
 
             if (await _userService.Add(newLearner.User) == null) return null;
             if (await _groupService.GetById(newLearner.GroupId) == null) return null;

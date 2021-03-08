@@ -9,6 +9,6 @@ export class Learner {
     username: string;
     lastname: string;
     group: Group;
+    status: boolean;
     learnerStatus: Course[];
-
 }

@@ -46,12 +46,12 @@
                             <label class="col-lg-2 col-form-label">Account status: </label>
                             <div class="col-lg-5">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" (click)=setStatus(true) checked>
                                     <label class="form-check-label" for="flexRadioDefault2">Enabled</label>
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" (click)=setStatus(false)>
                                     <label class="form-check-label" for="flexRadioDefault1">Disabled</label>
                                 </div>
                             </div>

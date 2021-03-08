@@ -25,5 +25,6 @@ namespace WESTDemo.API.Dto.UserDto
         [StringLength(150, ErrorMessage = "The field {0} must be between {2} and {1} characters", MinimumLength = 2)]
         public string LastName { get; set; }
         public DateTime Birthdate { get; set; }
+        public bool Status { get; set; }
     }
 }

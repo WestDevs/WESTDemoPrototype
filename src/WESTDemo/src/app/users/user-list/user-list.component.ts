@@ -29,6 +29,7 @@ export class UserListComponent implements OnInit {
   public learners: Learner[];
   private _courseFilter: number = 0;
   private _groupFilter: number = 0;
+  private _statusFilter: boolean = true;
   get searchTerm(): string {
     return this._searchTerm;
   }
@@ -48,7 +49,7 @@ export class UserListComponent implements OnInit {
   set groupFilter(value: number) {
     this._groupFilter = value;
     this.search();
-  }
+  }  
 
   constructor(private router: Router,
               private service: UserService,
@@ -135,13 +136,10 @@ export class UserListComponent implements OnInit {
   public search() {
       // this.searchLearner(this.searchTerm); commented out API search
       this.learners = this.listComplete;
-      console.log("before " + this.learners);
       this.searchByNames();
-      console.log("1" + this.learners);
       this.searchByCourse();
-      console.log("2" + this.learners);
       this.searchByGroup();
-      console.log("3" + this.learners);
+      this.searchByStatus();
   }
 
   public searchByCourse() {
@@ -173,6 +171,18 @@ export class UserListComponent implements OnInit {
       this.learners = this.learners?.filter(
         l => l.group?.id === value);
         }
+  }
+
+  public setStatus(value: boolean) {
+    this._statusFilter = value;
+    this.search();
+  }
+
+  public searchByStatus() {
+    const value = this._statusFilter;
+    this.learners = this.learners?.filter(
+        l => l.status === value
+      );
   }
 
   

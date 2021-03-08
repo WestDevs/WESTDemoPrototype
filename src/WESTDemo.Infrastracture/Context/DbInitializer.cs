@@ -63,7 +63,8 @@ namespace WESTDemo.Infrastracture.Context
                         LastName = "Admin0 LN",
                         OrganisationId = 1,
                         Birthdate = DateTime.Parse("1990-01-01"),
-                        TypeId = 1                        
+                        TypeId = 1,
+                        Status = true
                     },
                 new User
                     {  
@@ -72,7 +73,8 @@ namespace WESTDemo.Infrastracture.Context
                         LastName = "Tutor0 LN",
                         OrganisationId = 2,
                         Birthdate = DateTime.Parse("1991-01-01"),
-                        TypeId = 2                        
+                        TypeId = 2,
+                        Status = true
                     },
                 new User
                     {  
@@ -81,7 +83,8 @@ namespace WESTDemo.Infrastracture.Context
                         LastName = "Learner0 LN",
                         OrganisationId = 2,
                         Birthdate = DateTime.Parse("2005-01-01"),
-                        TypeId = 3                        
+                        TypeId = 3,
+                        Status = true
                     }                
             };
             foreach(var user in users)
